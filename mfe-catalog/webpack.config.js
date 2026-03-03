@@ -47,7 +47,7 @@ module.exports = {
       name: 'mfeCatalog',
       filename: 'remoteEntry.js',
       exposes: {
-        './CatalogView': './src/components/Catalog',
+        './CatalogView': './src/components/Catalog.jsx',
       },
       shared: {
         react: { singleton: true, requiredVersion: '^18.2.0' },
