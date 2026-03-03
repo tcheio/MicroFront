@@ -6,12 +6,25 @@ function Navbar() {
   const [notifications, setNotifications] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = eventBus.on('game:joined', (data) => {
-      console.log('Game joined:', data);
-      setNotifications(prev => prev + 1);
-    });
+    // TODO 1: S'abonner a l'evenement 'game:joined'
+    // Quand on recoit cet evenement, incrementer les notifications
+    //
+    // Indice: eventBus.on('nomEvenement', (data) => { ... })
+    //
+    // La fonction doit:
+    // 1. Incrementer notifications de 1 avec setNotifications
+    // 2. Optionnel: afficher data.gameName dans la console
+    //
+    // Ecrivez votre code ici:
 
-    return unsubscribe;
+
+    // TODO 2: Se desabonner quand le composant est demonte
+    // C'est IMPORTANT pour eviter les memory leaks !
+    //
+    // Indice: retourner une fonction cleanup dans useEffect
+    //
+    // return () => { ... };
+
   }, []);
 
   return (
