@@ -6,34 +6,16 @@ function Cart() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // écoute cart:add et ajoute chaque produit reçu au state items
-    // event attendu: { id, name, price }
     const unsubscribe = eventBus.on('cart:add', (product) => {
-      if (!product) return;
-
-      setItems((prev) => [
-        ...prev,
-        {
-          cartId: `${product.id}-${Date.now()}-${Math.random().toString(16).slice(2)}`,
-          id: product.id,
-          name: product.name,
-          price: Number(product.price) || 0,
-        },
-      ]);
+      setItems(prev => [...prev, { ...product, cartId: Date.now() }]);
     });
-
-    // cleanup React
-    return unsubscribe;
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    // notifie l'eventBus que le panier a changé
-    // L'événement doit contenir le nombre d'articles et le total
-    const total = items.reduce((sum, item) => sum + (Number(item.price) || 0), 0);
-
     eventBus.emit('cart:updated', {
       count: items.length,
-      total,
+      total: items.reduce((sum, item) => sum + item.price, 0),
     });
   }, [items]);
 
